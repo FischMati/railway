@@ -14,8 +14,11 @@ const useRequest = (baseUrl: string, params?: Record<string, string>) => {
         try {
             const result = await fetch(url).then((res) => res.json());
             setResult(result)
+            
+            return result;
         } catch (error) {
             setError(error as Error);
+            return error;
         } finally {
             setLoading(false);
         }

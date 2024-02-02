@@ -1,27 +1,57 @@
 import React, { useState } from "react";
-import { Button } from "@nextui-org/button";
-import DeleteForm from "../src/client/components/DeleteForm";
-import useCreateContainer from "@/src/client/hooks/useCreateContainer";
-import useGetAllContainers from "@/src/client/hooks/useGetAllContainers";
+import RailwayApiClient from "@/src/server/RailwayApiClient";
+import GetAllContainers from "@/src/server/queries/GetAllContainers";
+import ContainerCard from "@/src/client/components/containers/ContainerCard";
+import CreateContainerFAB from "@/src/client/components/containers/CreateContainerFAB";
+import ContainerListContext from "@/src/client/context/ContainerListContext";
 
-export default function Home() {
-  const { send, error } = useCreateContainer();
-
-  const onCreateOneClick = async () => {
-    await send();
+type QueryResult = {
+  project: {
+    services: {
+      edges: { 
+        node: {
+          id: string,
+          name: string
+        }
+      }[]
+    }
   }
+}
 
-  if(error){
-    alert(error);
+export async function getServerSideProps() {
+  const { 
+    project: { 
+      services: { 
+        edges 
+      }
+    }
+  } = await RailwayApiClient.request<QueryResult>(GetAllContainers)
+
+  const services = edges.map(({ node }) => ({ id: node.id, name: node.name }));
+ 
+  return {
+    props: {
+      services,
+    }
   }
+}
 
-  const { result } = useGetAllContainers();
+interface IProps {
+  services: {
+    id: string;
+    name: string;
+  }[]
+}
 
+export default function Home({ services }: IProps) {
+  const [containerList, setContainerList] = useState(services);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button onClick={onCreateOneClick}>Create one</Button>
-      <DeleteForm />
-    </div>
+    <ContainerListContext.Provider value={{ containerList, setContainerList }}>
+      <div className="p-24 gap-2 grid grid-cols-3">
+        { containerList.map((container, index) => <ContainerCard key={index} {...container} />) }
+      </div>
+      <CreateContainerFAB />      
+    </ContainerListContext.Provider>
   );
 }

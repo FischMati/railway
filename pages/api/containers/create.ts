@@ -5,11 +5,13 @@ import CreateContainer from "@/src/server/mutations/CreateContainer";
 type MutationResult = {
   serviceCreate: {
     id: string
+    name: string
   }
 }
 
 type ResponseData = {
   id: string
+  name: string
 }
 
 export default async function handler(
@@ -18,5 +20,5 @@ export default async function handler(
 ) {
   const data = await RailwayApiClient.request<MutationResult>(CreateContainer)
 
-  res.status(200).json({ id: data.serviceCreate.id });
+  res.status(200).json({ id: data.serviceCreate.id, name: data.serviceCreate.name });
 }
