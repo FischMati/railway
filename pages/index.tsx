@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@nextui-org/button";
 import DeleteForm from "../src/client/components/DeleteForm";
 import useCreateContainer from "@/src/client/hooks/useCreateContainer";
+import useGetAllContainers from "@/src/client/hooks/useGetAllContainers";
 
 export default function Home() {
   const { send, error } = useCreateContainer();
@@ -13,6 +14,8 @@ export default function Home() {
   if(error){
     alert(error);
   }
+
+  const { result } = useGetAllContainers();
 
 
   return (

@@ -26,7 +26,7 @@ export default async function handler(
 ) {
   const id = req.query['id'];
 
-  const data = await graphQLClient.request<MutationResult>(query, { id })
+  const { serviceDelete } = await graphQLClient.request<MutationResult>(query, { id })
 
-  res.status(200).json(data);
+  res.status(200).json({ serviceDelete });
 }

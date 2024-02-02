@@ -1,20 +1,14 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const useRequest = (baseUrl: string, params?: Record<string, string>) => {
     const [error, setError] = useState<Error | null>(null);
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState<any>(null);
     const [isLoading, setLoading] = useState(false);
+    const searchParams = new URLSearchParams(params);
 
-    const url = new URL(baseUrl);
+    const url = `${baseUrl}${searchParams.size ? `?${searchParams.toString()}` : ''}`;
 
-    if(params) {
-        Object
-            .entries(params)
-            .forEach(([name, value]) => url.searchParams.append(name, value));
-    }
-
-
-    const send = async () => {
+    const send = useCallback(async () => {
         setLoading(true);
 
         try {
@@ -25,8 +19,7 @@ const useRequest = (baseUrl: string, params?: Record<string, string>) => {
         } finally {
             setLoading(false);
         }
-
-    };
+    }, [url]);
 
     return { result, error, isLoading, send }
 }
