@@ -8,7 +8,7 @@ interface IProps {
 
 const FloatingButton = ({ onClick }: IProps) => {
     return (
-        <div className="fixed bottom-0 left-0 p-4">
+        <div className="fixed bottom-0 right-0 p-4">
             <Button isIconOnly onClick={onClick}>
                 <div className="w-6 h-6 flex items-center justify-center">
                     <PlusIcon />
