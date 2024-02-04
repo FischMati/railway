@@ -9,21 +9,21 @@ import RailwayApiGetAllResult from "@/src/server/domain/RailwayApiGetAllResult";
 import Container from "@/src/common/Container";
 
 export async function getServerSideProps() {
-  const {
-    project: {
-      services: {
-        edges
-      }
-    }
-  } = await RailwayApiClient.request<RailwayApiGetAllResult>(GetAllContainers)
+	const {
+		project: {
+			services: {
+				edges
+			}
+		}
+	} = await RailwayApiClient.request<RailwayApiGetAllResult>(GetAllContainers)
 
-  const services = edges.map(({ node }) => ({ id: node.id, name: node.name }));
+	const services = edges.map(({ node }) => ({ id: node.id, name: node.name }));
 
-  return {
-    props: {
-      services,
-    }
-  }
+	return {
+		props: {
+			services,
+		}
+	}
 }
 
 interface IProps {
@@ -31,14 +31,14 @@ interface IProps {
 }
 
 export default function Home({ services }: IProps) {
-  const [containerList, dispatch] = useReducer(ContainerListReducer, services);
+	const [containerList, dispatch] = useReducer(ContainerListReducer, services);
 
-  return (
-    <ContainerListContext.Provider value={{ containerList, dispatch }}>
-      <div className="p-24 gap-2 grid grid-cols-3">
-        {containerList.map((container, index) => <ContainerCard key={index} {...container} />)}
-      </div>
-      <CreateContainerFAB />
-    </ContainerListContext.Provider>
-  );
+	return (
+		<ContainerListContext.Provider value={{ containerList, dispatch }}>
+			<div className="p-24 gap-2 grid grid-cols-3">
+				{containerList.map((container, index) => <ContainerCard key={index} {...container} />)}
+			</div>
+			<CreateContainerFAB />
+		</ContainerListContext.Provider>
+	);
 }

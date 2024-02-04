@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button, Spinner } from '@nextui-org/react';
-import PlusIcon from './PlusIcon';
+import React from "react";
+import { Button, Spinner } from "@nextui-org/react";
+import PlusIcon from "./PlusIcon";
 
 interface IProps {
 	onClick(): void;

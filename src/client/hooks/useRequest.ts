@@ -6,7 +6,7 @@ const useRequest = (baseUrl: string, params?: Record<string, string>) => {
 	const [isLoading, setLoading] = useState(false);
 	const searchParams = new URLSearchParams(params);
 
-	const url = `${baseUrl}${searchParams.size ? `?${searchParams.toString()}` : ''}`;
+	const url = `${baseUrl}${searchParams.size ? `?${searchParams.toString()}` : ""}`;
 
 	const send = useCallback(async () => {
 		setLoading(true);

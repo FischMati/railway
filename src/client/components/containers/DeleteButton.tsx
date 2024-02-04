@@ -1,4 +1,4 @@
-import { Button, Spinner } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/react";
 import useDeleteContainer from "../../hooks/useDeleteContainer";
 import TrashIcon from "../common/TrashIcon";
 import { useContext } from "react";
@@ -16,7 +16,7 @@ const DeleteButton = ({ containerId }: IProps) => {
 		const result = await send();
 
 		if (result.deleted) {
-			dispatch({ type: 'DELETE_CONTAINER', payload: containerId });
+			dispatch({ type: "DELETE_CONTAINER", payload: containerId });
 		}
 	}
 

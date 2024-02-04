@@ -11,23 +11,23 @@ type ResponseData = { deleted: boolean } | ServerError;
 const defaultError = "Unable to delete service. Try again later";
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>,
+	req: NextApiRequest,
+	res: NextApiResponse<ResponseData>,
 ) {
-  const id = req.query['id'];
+	const id = req.query["id"];
 
-  try {
-    const data = await RailwayApiClient.request<RailwayApiDeleteResult | RailwayApiError>(DeleteContainer, { id })
+	try {
+		const data = await RailwayApiClient.request<RailwayApiDeleteResult | RailwayApiError>(DeleteContainer, { id })
 
-    if ('serviceDelete' in data) {
-      res.status(200).json({ deleted: data.serviceDelete });
-    } else {
-      res.status(500).json({ message: defaultError });
-    }
-  } catch (e) {
-    const error = e as ClientError;
-    const serverMessage = error.message.split(": {")[0];
+		if ("serviceDelete" in data) {
+			res.status(200).json({ deleted: data.serviceDelete });
+		} else {
+			res.status(500).json({ message: defaultError });
+		}
+	} catch (e) {
+		const error = e as ClientError;
+		const serverMessage = error.message.split(": {")[0];
 
-    res.status(500).json({ message: serverMessage });
-  }
+		res.status(500).json({ message: serverMessage });
+	}
 }
