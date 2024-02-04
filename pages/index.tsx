@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import RailwayApiClient from "@/src/server/RailwayApiClient";
 import GetAllContainers from "@/src/server/queries/GetAllContainers";
 import ContainerCard from "@/src/client/components/containers/ContainerCard";
@@ -9,16 +9,16 @@ import RailwayApiGetAllResult from "@/src/server/domain/RailwayApiGetAllResult";
 import Container from "@/src/common/Container";
 
 export async function getServerSideProps() {
-  const { 
-    project: { 
-      services: { 
-        edges 
+  const {
+    project: {
+      services: {
+        edges
       }
     }
   } = await RailwayApiClient.request<RailwayApiGetAllResult>(GetAllContainers)
 
   const services = edges.map(({ node }) => ({ id: node.id, name: node.name }));
- 
+
   return {
     props: {
       services,
@@ -34,11 +34,11 @@ export default function Home({ services }: IProps) {
   const [containerList, dispatch] = useReducer(ContainerListReducer, services);
 
   return (
-      <ContainerListContext.Provider value={{ containerList, dispatch }}>
-        <div className="p-24 gap-2 grid grid-cols-3">
-          { containerList.map((container, index) => <ContainerCard key={index} {...container} />) }
-        </div>
-        <CreateContainerFAB />      
-      </ContainerListContext.Provider>
+    <ContainerListContext.Provider value={{ containerList, dispatch }}>
+      <div className="p-24 gap-2 grid grid-cols-3">
+        {containerList.map((container, index) => <ContainerCard key={index} {...container} />)}
+      </div>
+      <CreateContainerFAB />
+    </ContainerListContext.Provider>
   );
 }

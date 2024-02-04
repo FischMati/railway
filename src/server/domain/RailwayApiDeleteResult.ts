@@ -1,5 +1,5 @@
 type RailwayApiDeleteResult = {
-    serviceDelete: boolean
+	serviceDelete: boolean
 }
 
 export default RailwayApiDeleteResult

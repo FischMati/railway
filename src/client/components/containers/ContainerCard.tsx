@@ -17,8 +17,8 @@ const ContainerCard = ({ id, name }: IProps) => {
 				<div>
 					<DeleteButton containerId={id} />
 				</div>
-      		</CardHeader>
-			<Divider/>
+			</CardHeader>
+			<Divider />
 			<CardBody>
 				<p>{id}</p>
 			</CardBody>

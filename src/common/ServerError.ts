@@ -1,5 +1,5 @@
 interface ServerError {
-    message: string
+	message: string
 }
 
 export default ServerError;

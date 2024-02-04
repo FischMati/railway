@@ -1,10 +1,9 @@
 interface RailwayApiError {
-    errors: Error[]
-    data: any
-  }
-  
+	errors: Error[]
+}
+
 export interface Error {
-    message: string
+	message: string
 }
 
 export default RailwayApiError

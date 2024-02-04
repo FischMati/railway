@@ -5,30 +5,30 @@ import { useContext } from "react";
 import ContainerListContext from "../../context/ContainerListContext";
 
 interface IProps {
-    containerId: string
+	containerId: string
 }
 
 const DeleteButton = ({ containerId }: IProps) => {
-    const { dispatch } = useContext(ContainerListContext);
-    const { send, isLoading } = useDeleteContainer(containerId);
+	const { dispatch } = useContext(ContainerListContext);
+	const { send, isLoading } = useDeleteContainer(containerId);
 
-    const onDeleteOneClick = async () => {
-        const result = await send();
+	const onDeleteOneClick = async () => {
+		const result = await send();
 
-        if(result.deleted){
-            dispatch({ type: 'DELETE_CONTAINER', payload: containerId });
-        }
-    }
+		if (result.deleted) {
+			dispatch({ type: 'DELETE_CONTAINER', payload: containerId });
+		}
+	}
 
-    return  <div className="w-4 h-4"> 
-        {
-            isLoading ? 
-                <Spinner size="sm" /> :
-                <button className="w-4 h-4 flex items-center justify-center" onClick={onDeleteOneClick}>
-                    <TrashIcon /> 
-                </button>
-        }
-        </div>
+	return <div className="w-4 h-4">
+		{
+			isLoading ?
+				<Spinner size="sm" /> :
+				<button className="w-4 h-4 flex items-center justify-center" onClick={onDeleteOneClick}>
+					<TrashIcon />
+				</button>
+		}
+	</div>
 }
 
 export default DeleteButton;

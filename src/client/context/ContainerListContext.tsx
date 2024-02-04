@@ -3,8 +3,8 @@ import React from "react";
 import { ContainerListAction } from "../reducers/ContainerListReducer";
 
 const ContainerListContext = React.createContext<{ containerList: Container[], dispatch: React.Dispatch<ContainerListAction> }>({
-    containerList: [],
-    dispatch: () => {}
+	containerList: [],
+	dispatch: () => { }
 });
 
 export default ContainerListContext;
