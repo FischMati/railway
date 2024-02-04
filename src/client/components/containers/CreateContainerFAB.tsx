@@ -4,11 +4,10 @@ import FloatingButton from "../common/FloatingButton";
 import AppStateContext from "../../context/AppStateContext";
 
 const CreateContainerFAB = () => {
-    const { send } = useCreateContainer();
+    const { send, isLoading } = useCreateContainer();
     const { dispatch } = useContext(AppStateContext);
 
     const onCreateOneClick = async () => {
-      dispatch({ type: 'CREATING_CONTAINER' })
       const result = await send();
       
       if(result.id) {
@@ -17,11 +16,9 @@ const CreateContainerFAB = () => {
       } else if (result instanceof Error) {
         dispatch({ type: 'ERROR', payload: result });
       }
-
-      dispatch({ type: 'CREATING_CONTAINER_FINISHED' })
     }
 
-    return <FloatingButton onClick={onCreateOneClick} />
+    return <FloatingButton onClick={onCreateOneClick} isLoading={isLoading} />
 }
 
 export default CreateContainerFAB
