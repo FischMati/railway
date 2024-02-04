@@ -6,6 +6,7 @@ import CreateContainerFAB from "@/src/client/components/containers/CreateContain
 import AppStateContext from "@/src/client/context/AppStateContext";
 import AppStateReducer from "@/src/client/reducers/AppStateReducer";
 import RailwayApiGetAllResult from "@/src/server/domain/RailwayApiGetAllResult";
+import Container from "@/src/common/Container";
 
 export async function getServerSideProps() {
   const { 
@@ -26,10 +27,7 @@ export async function getServerSideProps() {
 }
 
 interface IProps {
-  services: {
-    id: string;
-    name: string;
-  }[]
+  services: Container[]
 }
 
 export default function Home({ services }: IProps) {
