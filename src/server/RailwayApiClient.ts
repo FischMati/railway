@@ -1,8 +1,7 @@
 import { GraphQLClient } from "graphql-request"
+import ProcessEnv from "./ProcessEnv"
 
-const endpoint = "https://backboard.railway.app/graphql/v2"
-
-const RailwayApiClient = new GraphQLClient(endpoint, {
+const RailwayApiClient = new GraphQLClient(ProcessEnv.getVariable("RAILWAY_API_ENDPOINT"), {
     headers: {
         authorization: `Bearer ${process.env.RAILWAY_API_TOKEN}`,
     },
