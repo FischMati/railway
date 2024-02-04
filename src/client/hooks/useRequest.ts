@@ -12,10 +12,17 @@ const useRequest = (baseUrl: string, params?: Record<string, string>) => {
         setLoading(true);
 
         try {
-            const result = await fetch(url)
-            .then((res) => res.json());
-            setResult(result)
+            const res = await fetch(url)
             
+            if(!res.ok) {
+                const error = await res.json();
+
+                throw new Error(error.message);
+            }
+
+            const result = await res.json();
+        
+            setResult(result);
             return result;
         } catch (error) {
             setError(error as Error);

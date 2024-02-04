@@ -10,7 +10,6 @@ type AppStateAction =
 
 type AppState = {
   containerList: Container[];
-  containersInCreation: number;
   error: Error | null;
 }
 

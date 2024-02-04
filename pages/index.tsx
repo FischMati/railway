@@ -5,19 +5,7 @@ import ContainerCard from "@/src/client/components/containers/ContainerCard";
 import CreateContainerFAB from "@/src/client/components/containers/CreateContainerFAB";
 import AppStateContext from "@/src/client/context/AppStateContext";
 import AppStateReducer from "@/src/client/reducers/AppStateReducer";
-
-type QueryResult = {
-  project: {
-    services: {
-      edges: { 
-        node: {
-          id: string,
-          name: string
-        }
-      }[]
-    }
-  }
-}
+import RailwayApiGetAllResult from "@/src/server/domain/RailwayApiGetAllResult";
 
 export async function getServerSideProps() {
   const { 
@@ -26,7 +14,7 @@ export async function getServerSideProps() {
         edges 
       }
     }
-  } = await RailwayApiClient.request<QueryResult>(GetAllContainers)
+  } = await RailwayApiClient.request<RailwayApiGetAllResult>(GetAllContainers)
 
   const services = edges.map(({ node }) => ({ id: node.id, name: node.name }));
  
