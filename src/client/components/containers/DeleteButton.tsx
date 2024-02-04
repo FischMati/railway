@@ -2,23 +2,21 @@ import { Button, Spinner } from "@nextui-org/react";
 import useDeleteContainer from "../../hooks/useDeleteContainer";
 import TrashIcon from "../common/TrashIcon";
 import { useContext } from "react";
-import AppStateContext from "../../context/AppStateContext";
+import ContainerListContext from "../../context/ContainerListContext";
 
 interface IProps {
     containerId: string
 }
 
 const DeleteButton = ({ containerId }: IProps) => {
-    const { dispatch } = useContext(AppStateContext);
+    const { dispatch } = useContext(ContainerListContext);
     const { send, isLoading } = useDeleteContainer(containerId);
 
     const onDeleteOneClick = async () => {
         const result = await send();
 
         if(result.deleted){
-            dispatch({ type: 'CONTAINER_DELETED', payload: containerId });
-        } else if (result instanceof Error){
-            dispatch({ type: 'ERROR', payload: result });
+            dispatch({ type: 'DELETE_CONTAINER', payload: containerId });
         }
     }
 

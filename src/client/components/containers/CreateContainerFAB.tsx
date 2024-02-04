@@ -1,20 +1,18 @@
 import { useContext } from "react";
 import useCreateContainer from "../../hooks/useCreateContainer";
 import FloatingButton from "../common/FloatingButton";
-import AppStateContext from "../../context/AppStateContext";
+import ContainerListContext from "../../context/ContainerListContext";
 
 const CreateContainerFAB = () => {
-    const { send, error, isLoading } = useCreateContainer();
-    const { dispatch } = useContext(AppStateContext);
+    const { send, isLoading } = useCreateContainer();
+    const { dispatch } = useContext(ContainerListContext);
 
     const onCreateOneClick = async () => {
       const result = await send();
       
       if(result.id) {
         const { id, name } = result;
-        dispatch({ type: 'CONTAINER_CREATED', payload: { id, name } });
-      } else if (result instanceof Error) {
-        dispatch({ type: 'ERROR', payload: result });
+        dispatch({ type: 'ADD_CONTAINER', payload: { id, name } });
       }
     }
 
