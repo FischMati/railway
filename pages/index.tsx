@@ -27,7 +27,7 @@ export async function getServerSideProps() {
 }
 
 interface IProps {
-  services: Container[]
+	services: Container[]
 }
 
 export default function Home({ services }: IProps) {
@@ -36,7 +36,7 @@ export default function Home({ services }: IProps) {
 	return (
 		<ContainerListContext.Provider value={{ containerList, dispatch }}>
 			<div className="p-24 gap-2 grid grid-cols-3">
-				{containerList.map((container, index) => <ContainerCard key={index} {...container} />)}
+				{containerList.map((container, index) => <ContainerCard key={container.id} {...container} />)}
 			</div>
 			<CreateContainerFAB />
 		</ContainerListContext.Provider>
