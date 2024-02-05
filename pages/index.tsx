@@ -36,7 +36,7 @@ export default function Home({ services }: IProps) {
 	return (
 		<ContainerListContext.Provider value={{ containerList, dispatch }}>
 			<div className="p-24 gap-2 grid grid-cols-3">
-				{containerList.map((container, index) => <ContainerCard key={container.id} {...container} />)}
+				{containerList.map((container) => <ContainerCard key={container.id} {...container} />)}
 			</div>
 			<CreateContainerFAB />
 		</ContainerListContext.Provider>
